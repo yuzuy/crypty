@@ -1,4 +1,4 @@
-package crypty
+package main
 
 import (
 	"errors"

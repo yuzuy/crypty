@@ -12,6 +12,7 @@ import (
 // If a random number is greater than 234, happen bugs with a limit of unicode
 const maxRandomNumberRange = 234
 
+// Encrypt generates crypty crypto
 func Encrypt(text string) string {
 	var encryptedText string
 	randNumRange := maxRandomNumberRange

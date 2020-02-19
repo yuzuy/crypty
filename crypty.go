@@ -10,7 +10,6 @@ import (
 
 const MaxRandomNumberRange = 234
 
-// Encrypt returns the crypty hash.
 func Encrypt(text string) string {
 	var encryptedText string
 	randNumRange := MaxRandomNumberRange

@@ -1,6 +1,7 @@
 package crypty
 
 import (
+	"encoding/base64"
 	"fmt"
 	"math"
 	"math/rand"
@@ -30,13 +31,17 @@ func Encrypt(text string) string {
 		}
 		encryptedText += fmt.Sprintf("%s", string(code+rune(randNum))+string(rune(randNum*randNum)))
 	}
-	return encryptedText
+	return base64.URLEncoding.EncodeToString([]byte(encryptedText))
 }
 
 // Decrypt decrypts text was encrypted with crypty
-func Decrypt(encryptedText string) string {
+func Decrypt(encryptedTextEncoded string) (string, error) {
 	var plainText string
-	words := strings.Split(encryptedText, "")
+	encryptedTextByte, err := base64.URLEncoding.DecodeString(encryptedTextEncoded)
+	if err != nil {
+		return "", err
+	}
+	words := strings.Split(string(encryptedTextByte), "")
 	for {
 		randNum := math.Sqrt(float64([]rune(words[1])[0]))
 		decryptedWord := string([]rune(words[0])[0] - rune(randNum))
@@ -46,5 +51,5 @@ func Decrypt(encryptedText string) string {
 			break
 		}
 	}
-	return plainText
+	return plainText, nil
 }
